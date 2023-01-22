@@ -1,5 +1,6 @@
 <?php 
-include '../classes/crudarticle.php';
+include '../classes/crudArticle.php';
+include '../classes/statistic.class.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -14,6 +15,8 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/dashStyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/doc/assets/docs.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/src/parsley.css" />
 <!-- ================== END core-css ================== -->
 </head>
 <body>
@@ -33,10 +36,6 @@ session_start();
 
 
 <div class="container-fluid">
-    <!-- <div class="row"> -->
-      
-        <!-- <main class="col-11 col-sm-10"> -->
-
             <div class="d-md-flex justify-content-between mt-3 text-center">
                 <h1 class="mt-2">Welcome <span class="spanColor"><?php echo $_SESSION["name"]?>
                !</span></h1>
@@ -47,7 +46,7 @@ session_start();
                               <div>the article has been added</div>
                             </div> -->
             <!-- end of alert -->
-                <div class="row gap-1 justify-content-evenly p-5 mx-3 bg-secondary bg-opacity-75 rounded">
+                <div class="row gap-1 justify-content-evenly p-5 mx-3  rounded" style="background-color:#E9E9E9;">
                     <div class="d-flex bg-danger rounded col-md-3 col-6">
                         <div class="px-4 py-2">
                             <h6 class="text-white">Users</h6>
@@ -65,15 +64,16 @@ session_start();
                     <div class="d-flex bg-success rounded col-md-3 col-6">
                         <div class="px-4 py-2">
                             <h6 class="text-white">Articles</h6>
-                            <!-- <i class="fa fa-shopping-cart spanColor"></i> -->
-                        </div>
-                        <p class="fw-bold fs-3 py-2">6</p>
+                            <i class="fa fa-book spanColor"></i>
+                            </div>
+                        <p class="fw-bold fs-3 py-2"><?php STATISTIC::numArticles(); ?></p>
                     </div>
                 </div>            
             <div class="table-responsive mt-5 tb rounded">
                 <table class="table table-striped table-bordered"  id="tableId" >
                     <thead class="">
                         <tr>
+                            <th scope="col">COVER</th>
                             <th scope="col">TITLE</th>
                             <th scope="col">AUTHOR</th>
                             <th scope="col">CONTENT</th>
@@ -89,8 +89,6 @@ session_start();
                     </tbody>
                 </table>
             </div>    
-        <!-- </main> -->
-    <!-- </div> -->
 </div>
 
 <!-----------------------------------------------sidebar---------------------------------->
@@ -101,10 +99,10 @@ session_start();
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div>
-            <div class="profilImage">
+            <div class="profImage">
                 <img src="../images/user.png" width="100px" alt="not found" class="rounded-circle opacity-75 m-5"><br>
             </div>
-        <form action="../classes/crudarticle.php" method="POST">
+        <form action="../classes/crudArticle.php" method="POST">
                     <table class="table mt-3">
                             <tr class="border-0" hidden>
                                 <th><label class="spanColor">id</label></th>
@@ -141,7 +139,7 @@ session_start();
       </div>
       <div class="modal-body">
           <button type="submit" name="addNewArticle" class="btn btn-primary text-end" id="nABtn">add new article</button>
-        <form id="formId" action="../classes/crudarticle.php" method="POST">
+        <form id="formId" action="../classes/crudArticle.php" method="POST" enctype="multipart/form-data">
             <div id="formInputs">
                 <!-- for update -->
                 <input type="text" name="id" id="bookId" hidden><br>
@@ -154,8 +152,10 @@ session_start();
                 <select name="categories" id="categoriesId" class="form-control">
                     <option value="1">cloud</option>
                     <option value="2">web development</option>
-                    <option value="3">application</option>
+                    <option value="3">applications</option>
                 </select>  <br>  
+                <label for="">image</label><br>
+                <input type="file" name="image" id="imageId" accept=".jpg , .png , .jpeg">
                 <label for="">Content</label><br>
                 <textarea name="content" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
             </div>
@@ -176,6 +176,7 @@ session_start();
  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+ <script src="../js/parsley.js"></script>
  <script src="../js/scripts.js"></script>
  <script>
     $(document).ready( function () {

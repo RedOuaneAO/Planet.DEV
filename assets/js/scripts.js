@@ -22,6 +22,9 @@ var formInputs = document.getElementById("formInputs");
 // })
 
 function fillModal(id){
+    let imageInput =document.getElementById("imageId");
+    let cover = document.getElementById(id).querySelector(".article-cover").getElementById("coverId").getAttribute("src");
+    imageInput.value=cover;
     let titleInput =document.getElementById("titleId");
     let title = document.getElementById(id).querySelector(".article-title").innerHTML;
     titleInput.value =title;
