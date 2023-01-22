@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;500&family=Slabo+27px&display=swap");
+
+body{
+    /* background-color: #F1F4F6; */
+  font-family: "Inconsolata", monospace;
+
+}
+header{
+    background-color: #FAFBFC;
+    box-shadow: 0px 2px 10px 1px black;
+}
+table thead{
+    background:#E9E9E9;
+}
+.tb{
+    box-shadow: 0 1px 10px 1px black;
+}
+
+.btnColor{
+    background: linear-gradient(to right , #460059 ,#af40ce);
+    padding-block: 12px;
+}
+.spanColor{
+    color:#af40ce;
+}
+.profilImage{
+    background: url(../images/profimg.jpg);
+    background-size:contain ;
+}
+
+/* table */
+
+label {
+    font-weight: bold;
+    padding: 10px;
+    margin-right: 12px;
+}
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 10px;
+    background-color: #fff;
+}
+.dataTables_wrapper .dataTables_length select {
+    width: 90px;
+    background-color: #fff;
+}
+
+
+
+
+
+

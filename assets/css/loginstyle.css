@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;500&family=Slabo+27px&display=swap");
+body {
+  background: url(../images/quizzBg.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Inconsolata", monospace;
+}
+
+.contentContainer {
+  margin-inline: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.loginForm {
+  text-align: center;
+  margin-top: 100px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
+}
+
+.submitBtn {
+  background-color: rgba(136, 31, 234, 0.8588235294);
+  color: #fff;
+}
+
