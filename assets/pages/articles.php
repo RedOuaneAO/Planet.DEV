@@ -1,6 +1,8 @@
 <?php 
-include '../classes/crudarticle.php';
-session_start();
+include '../classes/crudArticle.php';
+if(!isset($_SESSION["name"])){
+    header("location:login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,7 @@ session_start();
             <div class="d-md-flex justify-content-between mt-3 text-center">
                 <h1 class="mt-2">Welcome <span class="spanColor"><?php echo $_SESSION["name"]?>
                !</span></h1>
-                <!-- <div class="mt-4 d-md-flex">
+                <div class="mt-4 d-md-flex">
                     <input list="cate" class="form-control">
                     <datalist id="cate">
                         <option value="Cloud">
@@ -44,22 +46,33 @@ session_start();
                         <option value="web">
                     </datalist>
                     <button class="rounded-2 fw-bold border-0 bg-info text-white px-4 my-4 ">Search</button>
-                </div> -->
-                <button class="rounded-2 fw-bold border-0 btnColor text-white px-4 my-4"  data-bs-toggle="modal" data-bs-target="#addModal" id="addArticleBtn" >ADD ARTICLE</button>
+                </div>
             </div><hr>
-            <!-- alert -->
-                            <div class="alert alert-primary d-flex align-items-center" role="alert">
-                              <div>the article has been added</div>
-                            </div>
-            <!-- end of alert -->
                 </div> 
                 <div class="d-flex justify-content-evenly">
+                    <?php
+                    $show =new CRUD();
+                    $show->getArt($data);
+                    // $show->$data=$result->fetchAll();
+                    //  foreach($data as $row){
+                    //         $id=$row['id'];
+                    var_dump($show)
+                    ?>
                     <div class="card" style="width: 18rem;">
                         <img src="../images/cloud.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
+                        </div>
+                    </div>   
+                    <?php  ?>       
+                    <!-- <div class="card" style="width: 18rem;">
+                        <img src="../images/cloud.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
                         </div>
                     </div>          
                     <div class="card" style="width: 18rem;">
@@ -67,17 +80,9 @@ session_start();
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
                         </div>
-                    </div>          
-                    <div class="card" style="width: 18rem;">
-                        <img src="../images/cloud.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>          
+                    </div>           -->
                 </div> 
         </div>
 
@@ -89,10 +94,10 @@ session_start();
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div>
-            <div class="profilImage">
+            <div class="profImage">
                 <img src="../images/user.png" width="100px" alt="not found" class="rounded-circle opacity-75 m-5"><br>
             </div>
-        <form action="../classes/crudarticle.php" method="POST">
+        <form action="../classes/crudArticle.php" method="POST">
                     <table class="table mt-3" class="border-0">
                             <tr class="border-0" hidden>
                                 <th><label class="spanColor">id</label></th>
@@ -120,39 +125,39 @@ session_start();
 
     <!---------------------------------Add articles Modal------------------------->
 
-<div class="modal fade" id="addModal">
+<div class="modal modal-xl fade" id="showModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add a Article</h5>
+        <h5 class="modal-title">Article Title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <button type="submit" name="addNewArticle" class="btn btn-primary text-end" id="nABtn">add new article</button>
-        <form id="formId" action="../classes/crudarticle.php" method="POST">
-            <div id="formInputs">
+        <!-- <form id="formId" action="../classes/crudArticle.php" method="POST"> -->
+            <div>
                 <!-- for update -->
-                <input type="text" name="id" id="bookId" hidden><br>
+                <input type="text" name="id" id="artId" hidden><br>
                 <!-- for update -->
-                <label for="">Title</label><br>
-                <input type="text" name="title" class="form-control" id="titleId" data-parsley-minlength="25" required><br>
-                <label for="">Author</label><br>
-                <input type="text" name="author" class="form-control" id="authorId" value="<?php echo $_SESSION['name'] ?>"><br>
-                <label for="">Categories</label><br>
-                <select name="categories" id="" class="form-control">
-                    <option value="1">cloud</option>
-                    <option value="2">web development</option>
-                    <option value="3">application</option>
-                </select>  <br>  
-                <label for="">Content</label><br>
-                <textarea name="content" class="form-control" id="" cols="30" rows="10"></textarea>
+                <div class="row text-center rounded m-auto p-4" style="background-color:#E9E9E9; width:90%;">
+                    <div class="col-4">
+                        <label>Cover</label><br>
+                        <img src="../images/cloud.jpg" class="w-25">
+                    </div>
+                    <div class="col-4">
+                        <label>Author</label>
+                        <p>your mom</p>
+                    </div>
+                    <div class="col-4">
+                        <label>Categories</label>
+                        <p>death</p>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label for="">Content</label><br>
+                    <textarea name="content" class="form-control" cols="30" rows="10" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, facilis iure. Necessitatibus dignissimos animi laborum quaerat deserunt optio placeat facere reprehenderit quia explicabo maxime officiis, quisquam nostrum? Doloremque rerum natus atque! Sunt illo odio voluptate pariatur veritatis, suscipit consectetur, laudantium alias neque, maxime accusamus temporibus facere. Dolor porro nemo quasi!</textarea>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" name="addArticle" class="btn btn-primary" id="addBtn">Add</button>
-              <!-- <button type="submit" name="update" class="btn btn-primary" id="updateId" >Update</button> -->
-            </div>
-        </form>
+        <!-- </form> -->
       </div>
     </div>
   </div>

@@ -1,7 +1,10 @@
 <?php 
 include '../classes/crudArticle.php';
 include '../classes/statistic.class.php';
-session_start();
+if(!isset($_SESSION["name"])){
+    header("location:login.php");
+}
+// session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +31,7 @@ session_start();
                     <div class="navbar-nav">
                         <a href="articles.php" class="nav-link mx-5 text-dark fw-bold">Home</a>
                         <a class="nav-link mx-5 text-dark fw-bold" data-bs-toggle="offcanvas" href="#sidebarId" role="button" aria-controls="offcanvasExample">Profile</a>
-                        <a href="logout.php" name="logout"  class="nav-link mx-5 text-dark fw-bold">logout</a>
+                        <a href="../classes/logout.class.php" name="logout"  class="nav-link mx-5 text-dark fw-bold">logout</a>
                     </div>
                 </div>
             </div>
@@ -41,30 +44,35 @@ session_start();
                !</span></h1>
                 <button class="rounded-2 fw-bold border-0 btnColor text-white px-4 my-4"  data-bs-toggle="modal" data-bs-target="#addModal" id="addBookBtn" onclick="btnReset()" >ADD ARTICLE</button>
             </div><hr>
-            <!-- alert -->
-                            <!-- <div class="alert alert-primary d-flex align-items-center" role="alert">
-                              <div>the article has been added</div>
-                            </div> -->
-            <!-- end of alert -->
+            <?php if (isset($_SESSION['message'])): ?> 						<!--the message of wrong data -->
+						<div class="alert alert-primary alert-dismissible fade show">
+						<strong>Done!</strong>
+						<?php 
+						echo $_SESSION['message']; 
+						unset($_SESSION['message']);
+					?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
+					</div>
+			<?php endif ?>
                 <div class="row gap-1 justify-content-evenly p-5 mx-3  rounded" style="background-color:#E9E9E9;">
-                    <div class="d-flex bg-danger rounded col-md-3 col-6">
+                    <div class="d-flex bg-white rounded col-md-3 col-6">
                         <div class="px-4 py-2">
-                            <h6 class="text-white">Users</h6>
+                            <h6 class="spanColor">Users</h6>
                             <i class="fa fa-users spanColor"></i>
                         </div>
-                        <p class="fw-bold fs-3 py-2">12</p>
+                        <p class="fw-bold fs-3 py-2"><?php STATISTIC::numUsers(); ?></p>
                     </div>
-                    <div class="d-flex bg-warning rounded col-md-3 col-6">
+                    <div class="d-flex bg-white rounded col-md-3 col-6">
                         <div class="px-4 py-2">
-                            <h6 class="text-white">writers</h6>
-                            <!-- <i class="fa fa-book spanColor"></i> -->
+                            <h6 class="spanColor">Authors</h6>
+                            <i class="bi bi-person-lines-fill spanColor"></i>
                         </div>
-                        <p class="fw-bold fs-3 py-2">22</p>
+                        <p class="fw-bold fs-3 py-2"><?php STATISTIC::numAuthors(); ?></p>
                     </div>
-                    <div class="d-flex bg-success rounded col-md-3 col-6">
+                    <div class="d-flex bg-white rounded col-md-3 col-6">
                         <div class="px-4 py-2">
-                            <h6 class="text-white">Articles</h6>
-                            <i class="fa fa-book spanColor"></i>
+                            <h6 class="spanColor">Articles</h6>
+                            <i class="bi bi-file-text-fill spanColor"></i>
                             </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numArticles(); ?></p>
                     </div>
@@ -121,7 +129,7 @@ session_start();
                                 <th><input type="password" name="passwordInput" value=""></th>
                             </tr>
                             <tr class="border-0">
-                                <th class="text-end"><button name="editProfi" class="px-4 py-2 mt-4 rounded-2 fw-bold border-0 btnColor text-white">Enregistrer</button><th>
+                                <th class="text-end"><button name="editProf" class="px-4 py-2 mt-4 rounded-2 fw-bold border-0 btnColor text-white">Enregistrer</button><th>
                             </tr>
                     </table>
         </form>
@@ -137,9 +145,10 @@ session_start();
         <h5 class="modal-title">Add a Article</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-          <button type="submit" name="addNewArticle" class="btn btn-primary text-end" id="nABtn">add new article</button>
+      <div class="modal-body" style="height: 80vh; overflow-y: auto;">
+          <button name="addNewArticle" class="btn btn-primary text-end" onclick="addNewForm()">add new article</button>
         <form id="formId" action="../classes/crudArticle.php" method="POST" enctype="multipart/form-data">
+            <div id="newArt"></div>
             <div id="formInputs">
                 <!-- for update -->
                 <input type="text" name="id" id="bookId" hidden><br>
@@ -155,7 +164,7 @@ session_start();
                     <option value="3">applications</option>
                 </select>  <br>  
                 <label for="">image</label><br>
-                <input type="file" name="image" id="imageId" accept=".jpg , .png , .jpeg">
+                <input type="file" name="image" id="imageId" accept=".jpg , .png , .jpeg"><br>
                 <label for="">Content</label><br>
                 <textarea name="content" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
             </div>
