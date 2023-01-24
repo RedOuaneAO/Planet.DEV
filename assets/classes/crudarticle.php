@@ -15,8 +15,11 @@ class CRUD {
         $_SESSION['message']='the article has been added';
         header('location: ../pages/dashBoard.php');
     }
-    public function updateArticle(){
-
+    public function updateArticle($Title,$Author,$Content,$Categories ,$image,$id){
+        $request="UPDATE `articles` SET `title`='$Title',`author`='$Author',`content`='$Content',`categorie_id`=$Categories,`publishDate`=NOW(),`images`='$image' WHERE id =$id";
+        $result = $this->conn->prepare($request);
+        $result->execute();   
+        header('location: ../pages/dashBoard.php');
     }
     public function getArt(){
         $request="SELECT * FROM articles ";
@@ -59,16 +62,33 @@ class CRUD {
 
 }
 if (isset($_POST['addArticle'])){
-    $Title=$_POST['title'];
-    $Author=$_POST['author'];
-    $Content=$_POST['content'];
-    $Categories=$_POST['categories'];
-    $image=$_FILES['image']['name'];
-    $image_temp=$_FILES['image']['tmp_name'];
+    for($i=0;$i<count($_POST['title']);$i++){
+    $Title=$_POST['title'][$i];
+    $Author=$_POST['author'][$i];
+    $Content=$_POST['content'][$i];
+    $Categories=$_POST['categories'][$i];
+    $image=$_FILES['image']['name'][$i];
+    $image_temp=$_FILES['image']['tmp_name'][$i];
     $upload_file = '../images/' . $image;
     move_uploaded_file($image_temp, $upload_file);
     $add= new CRUD();
     $add->addArticle($Title,$Author,$Content,$Categories ,$image);
+    }
+}
+if(isset($_POST['update'])){
+    for($i=0;$i<1;$i++){
+        $id=$_POST['id'];
+        $Title=$_POST['title'][$i];
+        $Author=$_POST['author'][$i];
+        $Content=$_POST['content'][$i];
+        $Categories=$_POST['categories'][$i];
+        $image=$_FILES['image']['name'][$i];
+        $image_temp=$_FILES['image']['tmp_name'][$i];
+        $upload_file = '../images/' . $image;
+        move_uploaded_file($image_temp, $upload_file);
+        $update= new CRUD();
+        $update->updateArticle($Title,$Author,$Content,$Categories,$image,$id);
+    }
 }
 
 

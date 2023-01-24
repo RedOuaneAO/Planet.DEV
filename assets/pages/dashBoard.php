@@ -154,19 +154,19 @@ if(!isset($_SESSION["name"])){
                 <input type="text" name="id" id="bookId" hidden><br>
                 <!-- for update -->
                 <label for="">Title</label><br>
-                <input type="text" name="title" class="form-control" id="titleId" data-parsley-minlength="25" required><br>
+                <input type="text" name="title[]" class="form-control" id="titleId" data-parsley-minlength="25" required><br>
                 <label for="">Author</label><br>
-                <input type="text" name="author" class="form-control" id="authorId" value=""><br>
+                <input type="text" name="author[]" class="form-control" id="authorId" ><br>
                 <label for="">Categories</label><br>
-                <select name="categories" id="categoriesId" class="form-control">
+                <select name="categories[]" id="categoriesId" class="form-control">
                     <option value="1">cloud</option>
                     <option value="2">web development</option>
                     <option value="3">applications</option>
                 </select>  <br>  
-                <label for="">image</label><br>
-                <input type="file" name="image" id="imageId" accept=".jpg , .png , .jpeg"><br>
-                <label for="">Content</label><br>
-                <textarea name="content" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
+                <label>image</label><br>
+                <input type="file" name="image[]" id="imageId" accept=".jpg , .png , .jpeg"><br>
+                <label>Content</label><br>
+                <textarea name="content[]" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
