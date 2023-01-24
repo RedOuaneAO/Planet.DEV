@@ -56,21 +56,21 @@ if(!isset($_SESSION["name"])){
 			<?php endif ?>
                 <div class="row gap-1 justify-content-evenly p-5 mx-3  rounded" style="background-color:#E9E9E9;">
                     <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-4 py-2">
+                        <div class="px-sm-4 pe-4 py-2">
                             <h6 class="spanColor">Users</h6>
                             <i class="fa fa-users spanColor"></i>
                         </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numUsers(); ?></p>
                     </div>
                     <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-4 py-2">
+                        <div class="px-sm-4 pe-3 py-2">
                             <h6 class="spanColor">Authors</h6>
                             <i class="bi bi-person-lines-fill spanColor"></i>
                         </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numAuthors(); ?></p>
                     </div>
                     <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-4 py-2">
+                        <div class="px-sm-4 pe-3 py-2">
                             <h6 class="spanColor">Articles</h6>
                             <i class="bi bi-file-text-fill spanColor"></i>
                             </div>
@@ -117,19 +117,12 @@ if(!isset($_SESSION["name"])){
                                 <th><input type="number" name="idInput" value=""></th>
                             </tr>
                             <tr class="border-0">
-                                <th>  <label for="" class="spanColor">Name</label></th>
-                                <th><input type="text" name="nameInput" value=""></th>
+                                <th>  <label class="spanColor">Full Name</label></th>
+                                <th><input type="text" name="nameInput" disabled value="<?php echo $_SESSION["name"] ?>"></th>
                             </tr>
                             <tr class="border-0">
-                                <th>  <label for="" class="spanColor">Email</label></th>
-                                <th><input type="email" name="emailInput" value=""></th>
-                            </tr>
-                            <tr class="border-0">
-                                <th>  <label for="" class="spanColor">Password</label></th>
-                                <th><input type="password" name="passwordInput" value=""></th>
-                            </tr>
-                            <tr class="border-0">
-                                <th class="text-end"><button name="editProf" class="px-4 py-2 mt-4 rounded-2 fw-bold border-0 btnColor text-white">Enregistrer</button><th>
+                                <th>  <label class="spanColor">Email</label></th>
+                                <th><input type="email" name="emailInput" disabled value="<?php echo $_SESSION["email"] ?>"></th>
                             </tr>
                     </table>
         </form>
@@ -146,7 +139,7 @@ if(!isset($_SESSION["name"])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="height: 80vh; overflow-y: auto;">
-          <button name="addNewArticle" class="btn btn-primary text-end" onclick="addNewForm()">add new article</button>
+          <button name="addNewArticle" id="addNArt" class="btn btn-primary text-end" onclick="addNewForm()">New Article</button>
         <form id="formId" action="../classes/crudArticle.php" method="POST" enctype="multipart/form-data">
             <div id="newArt"></div>
             <div id="formInputs">

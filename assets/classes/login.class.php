@@ -17,7 +17,6 @@ class LOGIN {
         return $data;
     }
 }
-
 if (isset($_POST['Submit'])) {
     $Email = $_POST['email'];
     $Password = $_POST['password'];
@@ -26,6 +25,7 @@ if (isset($_POST['Submit'])) {
     foreach($data as $row){
         if ($Email==$row["email"] && $Password==$row["password"]) {
             $_SESSION["name"]=$row["fullName"];
+            $_SESSION["email"]=$row["email"];
                 header('location: ../pages/dashBoard.php');
         } else {
                 header('location: ../pages/login.php');

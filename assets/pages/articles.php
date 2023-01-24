@@ -37,8 +37,8 @@ if(!isset($_SESSION["name"])){
             <div class="d-md-flex justify-content-between mt-3 text-center">
                 <h1 class="mt-2">Welcome <span class="spanColor"><?php echo $_SESSION["name"]?>
                !</span></h1>
-                <div class="mt-4 d-md-flex">
-                    <input list="cate" class="form-control">
+                <div class=" d-md-flex">
+                    <input list="cate" class="form-control my-4 me-3">
                     <datalist id="cate">
                         <option value="Cloud">
                         <option value="frontend">
@@ -49,40 +49,10 @@ if(!isset($_SESSION["name"])){
                 </div>
             </div><hr>
                 </div> 
-                <div class="d-flex justify-content-evenly">
-                    <?php
-                    $show =new CRUD();
-                    $show->getArt($data);
-                    // $show->$data=$result->fetchAll();
-                    //  foreach($data as $row){
-                    //         $id=$row['id'];
-                    var_dump($show)
-                    ?>
-                    <div class="card" style="width: 18rem;">
-                        <img src="../images/cloud.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
-                        </div>
-                    </div>   
-                    <?php  ?>       
-                    <!-- <div class="card" style="width: 18rem;">
-                        <img src="../images/cloud.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
-                        </div>
-                    </div>          
-                    <div class="card" style="width: 18rem;">
-                        <img src="../images/cloud.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <button class="rounded-2 border-0 btnColor text-white btn"  data-bs-toggle="modal" data-bs-target="#showModal">SHOW MORE</button>
-                        </div>
-                    </div>           -->
+                <div class="d-flex justify-content-center">
+                    <div class="d-md-flex justify-content-evenly">
+                        <?php  CRUD::getArt() ?>
+                    </div>
                 </div> 
         </div>
 
@@ -114,9 +84,6 @@ if(!isset($_SESSION["name"])){
                             <tr class="border-0">
                                 <th>  <label for="" class="spanColor">Password</label></th>
                                 <th><input type="password" name="passwordInput" value=""></th>
-                            </tr>
-                            <tr class="border-0">
-                                <th class="text-end"><button name="editProfi" class="px-4 py-2 mt-4 rounded-2 fw-bold border-0 btnColor text-white">Enregistrer</button><th>
                             </tr>
                     </table>
         </form>

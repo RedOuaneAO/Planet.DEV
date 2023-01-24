@@ -10,7 +10,6 @@ goToLogin.addEventListener("click",()=>{
     loginForm.style.display="block";
     registerForm.style.display="none";
 })
-var newArticle = document.getElementById("nABtn");
 var formInputs = document.getElementById("formInputs");
 function fillModal(id){
     document.getElementById('bookId').value = id;
@@ -21,21 +20,27 @@ function fillModal(id){
     let author = document.getElementById(id).querySelector(".article-author").innerHTML;
     authorInput.value=author
     let contentInput =document.getElementById("contentId");
-    let content = document.getElementById(id).querySelector(".article-content").innerHTML;
+    let content = document.getElementById(id).querySelector(".article-content").getAttribute('title');
     contentInput.value=content;
     let categoriesInput =document.getElementById("categoriesId");
-    let categories = document.getElementById(id).querySelector(".article-content").innerHTML;
+    let categories = document.getElementById(id).querySelector(".article-categories").innerHTML;
+    if(categories=='cloud') categories=1
+    if(categories=='web development') categories=2
+    if(categories=='applications') categories=3
     categoriesInput.value=categories;
     document.getElementById('addBtn').style.display = "none";
     document.getElementById('updateId').style.display = "inline";
+    document.getElementById('addNArt').style.display="none"
 }
 function btnReset(){
     document.getElementById('formId').reset();
     document.getElementById('addBtn').style.display = "inline";
     document.getElementById('updateId').style.display = "none";
+    document.getElementById('addNArt').style.display="inline"
 }
 function addNewForm(){
     var modal=`<div>
+    <button type="button" class="btn btn-danger" onclick="removeArt()">close</button>
     <!-- for update -->
     <input type="text" name="id" id="articleId" hidden><br>
     <!-- for update -->
@@ -55,4 +60,8 @@ function addNewForm(){
     <textarea name="content[]" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
 </div><hr>`
 $("#newArt").append(modal);
+}
+
+function removeArt(){
+$("#newArt").remove(modal);
 }
