@@ -1,6 +1,6 @@
 <?php
 // include '../classes/scripts.php'; 
-// include '../classes/database.class.php'; 
+include '../classes/login.class.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +22,16 @@
             <h2 class="fontWeight">Login</h2>
             <hr>
         </div>
+        <?php if (isset($_SESSION['message'])): ?> 					
+						<div class="alert alert-danger alert-dismissible fade show">
+						<strong>Oops!</strong>
+						<?php 
+						echo $_SESSION['message']; 
+						unset($_SESSION['message']);
+					?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
+					</div>
+			<?php endif ?>
         <form action="../classes/login.class.php" method="POST">
         <div>
             <label for="" class="mb-3">Email</label><br>

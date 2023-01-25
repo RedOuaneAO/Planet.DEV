@@ -40,7 +40,6 @@ function btnReset(){
 }
 function addNewForm(){
     var modal=`<div>
-    <button type="button" class="btn btn-danger" onclick="removeArt()">close</button>
     <!-- for update -->
     <input type="text" name="id" id="articleId" hidden><br>
     <!-- for update -->
@@ -58,10 +57,12 @@ function addNewForm(){
     <input type="file" name="image[]" id="imageId" accept=".jpg , .png , .jpeg"><br>
     <label>Content</label><br>
     <textarea name="content[]" class="form-control" id ="contentId"  cols="30" rows="10"></textarea>
+    <button type="button" class="btn btn-danger mt-2" onclick="removeArt(this)">close</button>
+
 </div><hr>`
 $("#newArt").append(modal);
 }
 
-function removeArt(){
-$("#newArt").remove(modal);
+function removeArt(element){
+   element.parentNode.remove();
 }

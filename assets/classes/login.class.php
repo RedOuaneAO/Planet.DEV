@@ -1,7 +1,7 @@
 <?php
-
-include "database.php";
 session_start();   
+include "database.php";
+
 class LOGIN {
     private $conn;
     public function __construct() {
@@ -28,6 +28,7 @@ if (isset($_POST['Submit'])) {
             $_SESSION["email"]=$row["email"];
                 header('location: ../pages/dashBoard.php');
         } else {
+                $_SESSION['message']='Enter a validate information';
                 header('location: ../pages/login.php');
         }
     }

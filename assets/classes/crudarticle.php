@@ -54,6 +54,8 @@ class CRUD {
             $Delete="DELETE FROM articles WHERE id=$id";
             $result = $this->conn->prepare($Delete);
             $result->execute();
+        $_SESSION['delete']='the article has been Deleted';
+
     }
    static public function getArticles(){
     $config = new DbConnection();
@@ -81,6 +83,7 @@ class CRUD {
         }
 
     }
+    
 
 }
 if (isset($_POST['addArticle'])){

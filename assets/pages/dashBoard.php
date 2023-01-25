@@ -44,7 +44,7 @@ if(!isset($_SESSION["name"])){
                !</span></h1>
                 <button class="rounded-2 fw-bold border-0 btnColor text-white px-4 my-4"  data-bs-toggle="modal" data-bs-target="#addModal" id="addBookBtn" onclick="btnReset()" >ADD ARTICLE</button>
             </div><hr>
-            <?php if (isset($_SESSION['message'])): ?> 						<!--the message of wrong data -->
+            <?php if (isset($_SESSION['message'])): ?> 						
 						<div class="alert alert-primary alert-dismissible fade show">
 						<strong>Done!</strong>
 						<?php 
@@ -55,28 +55,38 @@ if(!isset($_SESSION["name"])){
 					</div>
 			<?php endif ?>
                 <div class="row gap-1 justify-content-evenly p-5 mx-3  rounded" style="background-color:#E9E9E9;">
-                    <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-sm-4 pe-4 py-2">
+                    <div class="d-flex bg-white rounded col-md-3  col-sm-6 ">
+                        <div class="px-sm-4 pe-4 py-2 mx-4 mx-md-0">
                             <h6 class="spanColor">Users</h6>
                             <i class="fa fa-users spanColor"></i>
                         </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numUsers(); ?></p>
                     </div>
-                    <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-sm-4 pe-3 py-2">
+                    <div class="d-flex bg-white rounded col-md-3  col-sm-6">
+                        <div class="px-sm-4 pe-3 py-2 mx-4 mx-md-0">
                             <h6 class="spanColor">Authors</h6>
                             <i class="bi bi-person-lines-fill spanColor"></i>
                         </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numAuthors(); ?></p>
                     </div>
-                    <div class="d-flex bg-white rounded col-md-3 col-6">
-                        <div class="px-sm-4 pe-3 py-2">
+                    <div class="d-flex bg-white rounded col-md-3  col-sm-6">
+                        <div class="px-sm-4 pe-3 py-2 mx-4 mx-md-0">
                             <h6 class="spanColor">Articles</h6>
                             <i class="bi bi-file-text-fill spanColor"></i>
                             </div>
                         <p class="fw-bold fs-3 py-2"><?php STATISTIC::numArticles(); ?></p>
                     </div>
-                </div>            
+                </div> 
+                <?php if (isset($_SESSION['delete'])): ?> 						
+						<div class="alert alert-success mt-2 alert-dismissible fade show">
+						<strong>Done!</strong>
+						<?php 
+						echo $_SESSION['delete']; 
+						unset($_SESSION['delete']);
+					?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
+					</div>
+			<?php endif ?>           
             <div class="table-responsive mt-5 tb rounded">
                 <table class="table table-striped table-bordered"  id="tableId" >
                     <thead class="">
@@ -140,16 +150,16 @@ if(!isset($_SESSION["name"])){
       </div>
       <div class="modal-body" style="height: 80vh; overflow-y: auto;">
           <button name="addNewArticle" id="addNArt" class="btn btn-primary text-end" onclick="addNewForm()">New Article</button>
-        <form id="formId" action="../classes/crudArticle.php" method="POST" enctype="multipart/form-data">
+        <form id="formId" action="../classes/crudArticle.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
             <div id="newArt"></div>
             <div id="formInputs">
                 <!-- for update -->
                 <input type="text" name="id" id="bookId" hidden><br>
                 <!-- for update -->
                 <label for="">Title</label><br>
-                <input type="text" name="title[]" class="form-control" id="titleId" data-parsley-minlength="25" required><br>
+                <input type="text" name="title[]" class="form-control" id="titleId" data-parsley-minlength="5" required><br>
                 <label for="">Author</label><br>
-                <input type="text" name="author[]" class="form-control" id="authorId" ><br>
+                <input type="text" name="author[]" data-parsley-minlength="15" required class="form-control" id="authorId" ><br>
                 <label for="">Categories</label><br>
                 <select name="categories[]" id="categoriesId" class="form-control">
                     <option value="1">cloud</option>

@@ -1,7 +1,11 @@
 <?php
 
-function my_autoloader($class) {
-    include '../classes/' . $class . '.php';
-}
+spl_autoload_register('myAutoLoader');
 
-spl_autoload_register('my_autoloader');
+function myAutoLoader($className) {
+    $path = "/../classes/";
+    $extension = ".class.php";
+    $fullPath = $path . $className . $extension;
+
+    include_once  __DIR__.$fullPath;
+}

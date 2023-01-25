@@ -18,7 +18,7 @@ if(!isset($_SESSION["name"])){
 <!-- ================== END core-css ================== -->
 </head>
 <body>
-        <header class="navbar navbar-expand-lg">
+        <header class="navbar w-100 navbar-expand-lg">
             <div class="container-fluid">
                 <h4 class="navbar-brand fw-bold mx-4"><span class="spanColor">TECH</span>-CLUB</h4>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#linksId"><span class="navbar-toggler-icon"></span></button>
@@ -37,7 +37,7 @@ if(!isset($_SESSION["name"])){
             <div class="d-md-flex justify-content-between mt-3 text-center">
                 <h1 class="mt-2">Welcome <span class="spanColor"><?php echo $_SESSION["name"]?>
                !</span></h1>
-                <div class=" d-md-flex">
+                <!-- <div class=" d-md-flex">
                     <input list="cate" class="form-control my-4 me-3">
                     <datalist id="cate">
                         <option value="Cloud">
@@ -46,13 +46,11 @@ if(!isset($_SESSION["name"])){
                         <option value="web">
                     </datalist>
                     <button class="rounded-2 fw-bold border-0 bg-info text-white px-4 my-4 ">Search</button>
-                </div>
+                </div> -->
             </div><hr>
                 </div> 
-                <div class="d-flex justify-content-center">
-                    <div class="d-md-flex justify-content-evenly">
+                <div class="d-flex justify-content-around flex-wrap">
                         <?php  CRUD::getArt() ?>
-                    </div>
                 </div> 
         </div>
 
@@ -105,23 +103,23 @@ if(!isset($_SESSION["name"])){
                 <!-- for update -->
                 <input type="text" name="id" id="artId" hidden><br>
                 <!-- for update -->
-                <div class="row text-center rounded m-auto p-4" style="background-color:#E9E9E9; width:90%;">
-                    <div class="col-4">
+                <div class="d-flex justify-content-evenly text-center rounded m-auto p-4" style="background-color:#E9E9E9; width:90%;">
+                    <!-- <div class="col-4">
                         <label>Cover</label><br>
                         <img src="../images/cloud.jpg" class="w-25">
-                    </div>
-                    <div class="col-4">
+                    </div> -->
+                    <div class="">
                         <label>Author</label>
-                        <p>your mom</p>
+                        <p>Repellendus Sed qui</p>
                     </div>
-                    <div class="col-4">
+                    <div class="">
                         <label>Categories</label>
-                        <p>death</p>
+                        <p>applications</p>
                     </div>
                 </div>
                 <div class="mt-3">
                     <label for="">Content</label><br>
-                    <textarea name="content" class="form-control" cols="30" rows="10" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, facilis iure. Necessitatibus dignissimos animi laborum quaerat deserunt optio placeat facere reprehenderit quia explicabo maxime officiis, quisquam nostrum? Doloremque rerum natus atque! Sunt illo odio voluptate pariatur veritatis, suscipit consectetur, laudantium alias neque, maxime accusamus temporibus facere. Dolor porro nemo quasi!</textarea>
+                    <textarea name="content" class="form-control" cols="30" rows="10" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, facilis iure. Necessitatibus dignissimos animi laborum quaerat deserunt optio placeat facere reprehenderit quia explicabo maxime officiis, quisquam nostrum? Doloremque rerum natus atque! Sunt illo odio voluptate pariatur veritatis, suscipit consectetur, laudantium alias neque, maxime accusamus temporibus facere. Dolor porro nemo quasi!</textarea><br><label for="">12/01/2023</label>
                 </div>
             </div>
         <!-- </form> -->
